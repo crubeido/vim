@@ -60,7 +60,6 @@ set autoindent
 "set smartindent
 set mouse=a
 set showmatch
-"set matchtime=3
 "set expandtab
 
 " Syntax Highlighting
