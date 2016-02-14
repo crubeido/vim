@@ -1,6 +1,7 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+" git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -28,10 +29,8 @@ Plugin 'taglist.vim'
 Plugin 'AutoComplPop'
 " fugitive
 Plugin 'fugitive.vim'
-" OmniCppComplete
-Plugin 'OmniCppComplete'
-" Clang-complete
-Plugin 'clang-complete'
+" SrcExpl
+Plugin 'SrcExpl'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -68,20 +67,7 @@ if has("syntax")
 endif
 
 " ctags setting
-set tags=./tags,tags,./TAGS,TAGS,/home/webos/lib/glib-2.40.0/tags,/home/webos/lib/include/tags,/home/webos/lib/src/tags,/home/webos/lib/luna-service2/tags
-
-" OmniCppComplete
-let OmniCpp_NamespaceSearch = 1
-let OmniCpp_GlobalScopeSearch = 1
-let OmniCpp_ShowAccess = 1
-let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
-let OmniCpp_MayCompleteDot = 1 " autocomplete after .
-let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
-let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
-let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
-" automatically open and close the popup menu / preview window
-au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-set completeopt=menuone,menu,longest,preview
+set tags=./tags,tags,./TAGS,TAGS
 
 " cscope setting
 set csprg=/usr/bin/cscope
@@ -125,7 +111,6 @@ inoremap '' <ESC>
 map <F5> :w <CR> :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q cpp ./* <CR> <CR>
 map <F6> :q <CR>
 map <F7> :w <CR> :make <CR> :cw <CR> <S-g>
-"map <F7> :w <CR> :!cd BUILD-m14tv/ && make <CR> :cw <CR> <S-g>
 map <F8> :make <CR> !gdb ./a.out <CR>
 map <F9> :NERDTree <CR>
 map <F10>:Tlist <CR>
