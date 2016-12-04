@@ -19,6 +19,8 @@ Plugin 'L9'
 " Git plugin not hosted on GitHub
 Plugin 'git://git.wincent.com/command-t.git'
 
+" Bundle
+"git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 " The followings are my own
 Plugin 'The-NERD-tree'
 Plugin 'AutoComplPop'
@@ -31,6 +33,7 @@ Plugin 'vim-airline'                    " https://github.com/vim-airline/vim-air
 Plugin 'vim-airline-themes'             " https://github.com/vim-airline/vim-airline-themes.git
 Plugin 'Conque'                         " https://github.com/vim-scripts/Conque-GDB.git
 Plugin 'tagbar'                         " https://github.com/majutsushi/tagbar.git
+"Plugin 'YouCompleteMe'                  " https://github.com/Valloric/YouCompleteMe.git
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -54,7 +57,7 @@ set nu
 set vb
 set ts=4
 set sw=4
-set bg=dark
+"set bg=dark
 set cindent
 set autoindent
 "set smartindent
@@ -68,6 +71,7 @@ set ttimeoutlen=50
 set encoding=utf-8
 set fileencodings=utf-8,euckr
 set path=.,./
+set hlsearch
 
 " Declare mapleader
 let mapleader = ";"
@@ -77,8 +81,16 @@ if has("syntax")
 	syntax on
 endif
 
+" Add highlighting for function definition in C++
+function! EnhanceCppSyntax()
+  syn match cppFuncDef "::\~\?\zs\h\w*\ze([^)]*\()\s*\(const\)\?\)\?$"
+  hi def link cppFuncDef Special
+endfunction
+autocmd Syntax cpp call EnhanceCppSyntax()
+
 " ctags setting
 set tags=./tags,tags,./TAGS,TAGS,/home/work/eunsik0.lee/webos/luna-service2/tags,/home/work/eunsik0.lee/webos/libpbnjson/tags,/home/work/eunsik0.lee/webos/cjson/tags,/home/work/eunsik0.lee/include/cpp
+"set tags=/home/work/eunsik0.lee/work/linux/tags
 map <Leader>ac <ESC>:!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=c++ .<CR><CR>
 map <Leader>aa <ESC>:!ctags -R<CR><CR>
 
@@ -92,7 +104,7 @@ let OmniCpp_MayCompleteArrow = 1
 let OmniCpp_MayCompleteScore = 1
 let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 
-" cscope setting
+" cscope basic setting
 set csprg=/usr/bin/cscope
 set csto=0
 set cst
@@ -105,22 +117,32 @@ else
 endif
 set csverb
 
+" cscope short cut
+nnoremap <Leader>cs <ESC>:cs find s <cword><CR>  " Find this C symbol
+nnoremap <Leader>cg <ESC>:cs find g <cword><CR>  " Find this definition
+nnoremap <Leader>cd <ESC>:cs find d <cword><CR>  " Find functions called by this function
+nnoremap <Leader>cc <ESC>:cs find c <cword><CR>  " Find functions calling this function
+nnoremap <Leader>ct <ESC>:cs find t <cword><CR>  " Find assigntments to
+nnoremap <Leader>ce <ESC>:cs find e <cword><CR>  " Find this egrep pattern
+nnoremap <Leader>cf <ESC>:cs find f <cword><CR>  " Find this file
+nnoremap <Leader>ci <ESC>:cs find i <cword><CR>  " Find files #including this file
+
 " Find white space
 match ErrorMsg '\s\+$'
 
-" Taglist setting
-let Tlist_Use_Right_Window = 1
+" Fix : Do not make slow vim due to scanning function by tagbar
+let g:airline#extensions#tagbar#enabled = 0
 
-" Tab key Auto Complete
-function InsertTabWrapper()
-	let col = col('.') - 1
-	if !col || getline('.')[col - 1] !~ '\k'
-		return "\<tab>"
-	else
-		return "\<c-p>"
-	endif
-endfunction
-inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+"function! InsertTabWrapper()
+"    let col = col('.') - 1
+"    if !col || getline('.')[col - 1] !~ '\k'
+"        return "\<tab>"
+"    else
+"        return "\<c-p>"
+"    endif
+"endfunction
+"
+"inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 
 " Auto Complete for Ctrl i
 inoremap <C-i> <C-x><C-o>
@@ -141,7 +163,7 @@ nnoremap <C-s> :w<CR>
 vnoremap <C-s> <ESC>:w<CR>
 
 " grep
-nnoremap <C-l> :grep -I <cword> * -r<CR>:copen<CR>
+nnoremap <C-j> :grep -I <cword> * -r --exclude={tags,cscope.out,cscope.files}<CR>:copen<CR><CR>
 
 " easier moving of code blocks
 vnoremap < <gv
@@ -152,6 +174,9 @@ map <Leader>to <ESC>:tabedit<CR>
 map <Leader>tc <ESC>:tabclose<CR>
 map <Leader>tl <ESC>:tabs<CR>
 
+" Make makefile
+map <Leader>m <ESC>:make<CR>:copen<CR><CR>
+
 " Quit
 inoremap <C-q> <ESC>:q<CR>
 nnoremap <C-q> :q<CR>
@@ -161,7 +186,7 @@ let g:airline#extensions#tabline#enabled = 1
 
 " Settings for ctrlp
 let g:ctrlp_map = '<C-p>'
-let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_max_height = 10
 set wildignore+=*.pyc
 set wildignore+=*_build/*
@@ -173,3 +198,7 @@ let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:SrcExpl_winHeight = 8 " // Set the height of Source Explorer window
 let g:SrcExpl_refreshTime = 100 " // Set 100 ms for refreshing the Source Explorer
 
+" Tab key Auto Complete
+"inoremap <tab> <tab>
+
+colorscheme molokai " https://github.com/tomasr/molokai.git
