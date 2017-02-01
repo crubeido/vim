@@ -8,24 +8,13 @@ call vundle#begin()
 " call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+Plugin 'gmarik/Vundle.vim'              " https://github.com/VundleVim/Vundle.vim.git
 
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-Plugin 'L9'
-" Git plugin not hosted on GitHub
-Plugin 'git://git.wincent.com/command-t.git'
-
-" Bundle
-"git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 " The followings are my own
-Plugin 'The-NERD-tree'
-Plugin 'AutoComplPop'
-Plugin 'fugitive.vim'
-Plugin 'Source-Explorer-srcexpl.vim'    " https://github.com/wesleyche/SrcExpl.git
+Plugin 'The-NERD-tree'                  " https://github.com/vim-scripts/The-NERD-tree.git
+Plugin 'AutoComplPop'                   " https://github.com/vim-scripts/AutoComplPop.git
+Plugin 'fugitive.vim'                   " https://github.com/tpope/vim-fugitive.git
+Plugin 'SrcExpl'                        " https://github.com/wesleyche/SrcExpl.git
 Plugin 'CCTree'                         " https://github.com/vim-scripts/CCTree.git
 Plugin 'OmniCppComplete'                " https://github.com/vim-scripts/OmniCppComplete.git
 Plugin 'ctrlp.vim'                      " https://github.com/kien/ctrlp.vim.git
@@ -33,7 +22,17 @@ Plugin 'vim-airline'                    " https://github.com/vim-airline/vim-air
 Plugin 'vim-airline-themes'             " https://github.com/vim-airline/vim-airline-themes.git
 Plugin 'Conque'                         " https://github.com/vim-scripts/Conque-GDB.git
 Plugin 'tagbar'                         " https://github.com/majutsushi/tagbar.git
+Plugin 'ack.vim'                        " https://github.com/mileszs/ack.vim.git
 "Plugin 'YouCompleteMe'                  " https://github.com/Valloric/YouCompleteMe.git
+
+" javascript
+Plugin 'vim-node'                       " https://github.com/moll/vim-node.git
+Plugin 'vim-javascript'                 " https://github.com/pangloss/vim-javascript.git
+Plugin 'vim-javascript-syntax'          " https://github.com/jelera/vim-javascript-syntax.git
+Plugin 'vim-indent-guides'              " https://github.com/nathanaelkane/vim-indent-guides.git
+
+" qml
+"Plugin 'qml.vim'                        " https://github.com/calincru/qml.vim.git
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -72,6 +71,7 @@ set encoding=utf-8
 set fileencodings=utf-8,euckr
 set path=.,./
 set hlsearch
+set backspace=indent,eol,start
 
 " Declare mapleader
 let mapleader = ";"
@@ -133,19 +133,13 @@ match ErrorMsg '\s\+$'
 " Fix : Do not make slow vim due to scanning function by tagbar
 let g:airline#extensions#tagbar#enabled = 0
 
-"function! InsertTabWrapper()
-"    let col = col('.') - 1
-"    if !col || getline('.')[col - 1] !~ '\k'
-"        return "\<tab>"
-"    else
-"        return "\<c-p>"
-"    endif
-"endfunction
-"
-"inoremap <tab> <c-r>=InsertTabWrapper()<cr>
-
 " Auto Complete for Ctrl i
-inoremap <C-i> <C-x><C-o>
+inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
+            \ "\<lt>C-n>" :
+            \ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
+            \ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
+            \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
+imap <C-@> <C-Space>
 
 " Brackets Auto Complete
 inoremap ( ()<ESC>i
@@ -164,6 +158,8 @@ vnoremap <C-s> <ESC>:w<CR>
 
 " grep
 nnoremap <C-j> :grep -I <cword> * -r --exclude={tags,cscope.out,cscope.files}<CR>:copen<CR><CR>
+" Ack
+"nnoremap <C-j> :Ack --ignore-file=is:tags <cword><CR>
 
 " easier moving of code blocks
 vnoremap < <gv
@@ -175,7 +171,7 @@ map <Leader>tc <ESC>:tabclose<CR>
 map <Leader>tl <ESC>:tabs<CR>
 
 " Make makefile
-map <Leader>m <ESC>:make<CR>:copen<CR><CR>
+map <Leader>m <ESC>:make<CR>:copen<CR><CR><C-w>w
 
 " Quit
 inoremap <C-q> <ESC>:q<CR>
@@ -198,7 +194,5 @@ let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:SrcExpl_winHeight = 8 " // Set the height of Source Explorer window
 let g:SrcExpl_refreshTime = 100 " // Set 100 ms for refreshing the Source Explorer
 
-" Tab key Auto Complete
-"inoremap <tab> <tab>
-
 colorscheme molokai " https://github.com/tomasr/molokai.git
+"colorscheme distinguished " https://github.com/Lokaltog/vim-distinguished.git
