@@ -23,6 +23,10 @@ Plugin 'vim-airline-themes'             " https://github.com/vim-airline/vim-air
 Plugin 'Conque'                         " https://github.com/vim-scripts/Conque-GDB.git
 Plugin 'tagbar'                         " https://github.com/majutsushi/tagbar.git
 Plugin 'ack.vim'                        " https://github.com/mileszs/ack.vim.git
+Plugin 'auto-pairs'                     " https://github.com/jiangmiao/auto-pairs.git
+"Plugin 'syntastic'                      " https://github.com/vim-syntastic/syntastic.git
+Plugin 'tern-for-vim'                   " https://github.com/ternjs/tern_for_vim.git
+Plugin 'gundo.vim'                      " https://github.com/sjl/gundo.vim.git
 "Plugin 'YouCompleteMe'                  " https://github.com/Valloric/YouCompleteMe.git
 
 " javascript
@@ -56,7 +60,7 @@ set nu
 set vb
 set ts=4
 set sw=4
-"set bg=dark
+set bg=dark
 set cindent
 set autoindent
 "set smartindent
@@ -72,6 +76,7 @@ set fileencodings=utf-8,euckr
 set path=.,./
 set hlsearch
 set backspace=indent,eol,start
+set relativenumber
 
 " Declare mapleader
 let mapleader = ";"
@@ -91,8 +96,8 @@ autocmd Syntax cpp call EnhanceCppSyntax()
 " ctags setting
 set tags=./tags,tags,./TAGS,TAGS,/home/work/eunsik0.lee/webos/luna-service2/tags,/home/work/eunsik0.lee/webos/libpbnjson/tags,/home/work/eunsik0.lee/webos/cjson/tags,/home/work/eunsik0.lee/include/cpp
 "set tags=/home/work/eunsik0.lee/work/linux/tags
-map <Leader>ac <ESC>:!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=c++ .<CR><CR>
-map <Leader>aa <ESC>:!ctags -R<CR><CR>
+map <Leader>ac <ESC>:!ctags -R -I --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=c++ .<CR><CR>
+"map <Leader>aj <ESC>:!find . -type f -iregex ".*\.js$" -not -path "./node_modules/*" -exec jsctags {} -f \; | sed '/^$/d' | sort > tags<CR>
 
 " Settings for OmniCppComplete
 let OmniCpp_NamespaceSearch = 1
@@ -141,11 +146,6 @@ inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
             \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
 imap <C-@> <C-Space>
 
-" Brackets Auto Complete
-inoremap ( ()<ESC>i
-inoremap { {}<ESC>i
-inoremap {<CR> {<CR>}<ESC>ko
-
 " Save file and change <x> mode to normal mode if insert mode
 " Pre-Condition: Add below 2 lines to ~/.bashrc
 " stty ixany
@@ -193,6 +193,20 @@ let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 " Settings for SrcExpl
 let g:SrcExpl_winHeight = 8 " // Set the height of Source Explorer window
 let g:SrcExpl_refreshTime = 100 " // Set 100 ms for refreshing the Source Explorer
+
+" Auto-pairs
+let g:AutoPairsFlyMode = 1
+
+" syntastic
+map <Leader>sc <ESC>:SyntasticCheck<CR>
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+"let g:syntastic_javascript_checkers = ['jshint']
 
 colorscheme molokai " https://github.com/tomasr/molokai.git
 "colorscheme distinguished " https://github.com/Lokaltog/vim-distinguished.git
