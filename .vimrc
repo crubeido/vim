@@ -23,17 +23,24 @@ Plugin 'vim-airline-themes'             " https://github.com/vim-airline/vim-air
 Plugin 'Conque'                         " https://github.com/vim-scripts/Conque-GDB.git
 Plugin 'tagbar'                         " https://github.com/majutsushi/tagbar.git
 Plugin 'ack.vim'                        " https://github.com/mileszs/ack.vim.git
-Plugin 'auto-pairs'                     " https://github.com/jiangmiao/auto-pairs.git
+Plugin 'vim-surround'                   " https://github.com/tpope/vim-surround.git
 "Plugin 'syntastic'                      " https://github.com/vim-syntastic/syntastic.git
 Plugin 'tern-for-vim'                   " https://github.com/ternjs/tern_for_vim.git
 Plugin 'gundo.vim'                      " https://github.com/sjl/gundo.vim.git
 "Plugin 'YouCompleteMe'                  " https://github.com/Valloric/YouCompleteMe.git
+Plugin 'gsearch'                        " https://github.com/vim-scripts/gsearch.git
+Plugin 'vim-gitgutter'                  " https://github.com/airblade/vim-gitgutter.git
+Plugin 'tabular'                        " https://github.com/godlygeek/tabular.git
+Plugin 'CycleColor'                     " https://github.com/vim-scripts/CycleColor.git
+Plugin 'auto-pairs'                     " https://github.com/jiangmiao/auto-pairs.git
+Plugin 'nerdcommenter'                  " https://github.com/scrooloose/nerdcommenter.git
 
 " javascript
 Plugin 'vim-node'                       " https://github.com/moll/vim-node.git
 Plugin 'vim-javascript'                 " https://github.com/pangloss/vim-javascript.git
 Plugin 'vim-javascript-syntax'          " https://github.com/jelera/vim-javascript-syntax.git
 Plugin 'vim-indent-guides'              " https://github.com/nathanaelkane/vim-indent-guides.git
+Plugin 'vim-nodejs-complete'            " https://github.com/myhere/vim-nodejs-complete.git
 
 " qml
 "Plugin 'qml.vim'                        " https://github.com/calincru/qml.vim.git
@@ -60,7 +67,6 @@ set nu
 set vb
 set ts=4
 set sw=4
-set bg=dark
 set cindent
 set autoindent
 "set smartindent
@@ -68,7 +74,6 @@ set mouse=a
 set showmatch
 set expandtab
 set nobackup
-set t_Co=256
 set laststatus=2
 set ttimeoutlen=50
 set encoding=utf-8
@@ -76,7 +81,6 @@ set fileencodings=utf-8,euckr
 set path=.,./
 set hlsearch
 set backspace=indent,eol,start
-set relativenumber
 
 " Declare mapleader
 let mapleader = ";"
@@ -177,6 +181,9 @@ map <Leader>m <ESC>:make<CR>:copen<CR><CR><C-w>w
 inoremap <C-q> <ESC>:q<CR>
 nnoremap <C-q> :q<CR>
 
+" Settings for gsearch
+map <Leader>g <ESC>:Wiki <cword><CR>
+
 " Settings for vim-airline
 let g:airline#extensions#tabline#enabled = 1
 
@@ -194,19 +201,25 @@ let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:SrcExpl_winHeight = 8 " // Set the height of Source Explorer window
 let g:SrcExpl_refreshTime = 100 " // Set 100 ms for refreshing the Source Explorer
 
-" Auto-pairs
-let g:AutoPairsFlyMode = 1
-
 " syntastic
-map <Leader>sc <ESC>:SyntasticCheck<CR>
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-"let g:syntastic_javascript_checkers = ['jshint']
+"function! SyntasticChecker()
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_auto_loc_list = 1
+    let g:syntastic_check_on_open = 0
+    let g:syntastic_check_on_wq = 0
+    let g:syntastic_check_on_w = 0
+    let g:syntastic_javascript_checkers = ['jshint']
+"endfunction
+"autocmd Syntax javascript call SyntasticChecker()
 
-colorscheme molokai " https://github.com/tomasr/molokai.git
-"colorscheme distinguished " https://github.com/Lokaltog/vim-distinguished.git
+
+syntax on
+let g:solarized_termcolors=256
+se t_Co=256
+set background=light
+"colorscheme molokai " https://github.com/tomasr/molokai.git
+"colorscheme solarized " https://github.com/altercation/vim-colors-solarized.git
+colorscheme distinguished " https://github.com/Lokaltog/vim-distinguished.git
