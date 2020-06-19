@@ -1,0 +1,109 @@
+#!/bin/bash
+
+INDEX=0
+# WALL_INFO
+GERRIT_NAMES[${INDEX}]="WALL"
+GERRIT_IDS[${INDEX}]="eunsik0.lee"
+GERRIT_URLS[${INDEX}]="wall.lge.com"
+GERRIT_PORTS[${INDEX}]=29448
+((INDEX++)) # INDEX=0
+
+# G2G_INFO
+GERRIT_NAMES[${INDEX}]="G2G"
+GERRIT_IDS[${INDEX}]="eunsik.lee"
+GERRIT_URLS[${INDEX}]="g2g.lgsvl.com"
+GERRIT_PORTS[${INDEX}]=29418
+((INDEX++)) # INDEX=1
+
+
+# GPRO_INFO
+GERRIT_NAMES[${INDEX}]="GPRO"
+GERRIT_IDS[${INDEX}]="eunsik.lee"
+GERRIT_URLS[${INDEX}]="gpro.lgsvl.com"
+GERRIT_PORTS[${INDEX}]=29418
+((INDEX++)) # INDEX=2
+
+
+# WE_INFO
+GERRIT_NAMES[${INDEX}]="WE"
+GERRIT_IDS[${INDEX}]="eunsik0.lee"
+GERRIT_URLS[${INDEX}]="we.lge.com"
+GERRIT_PORTS[${INDEX}]=29425
+((INDEX++)) # INDEX=3
+
+# GPRO_LGE_INFO
+GERRIT_NAMES[${INDEX}]="GPRO_LGE"
+GERRIT_IDS[${INDEX}]="eunsik0.lee"
+GERRIT_URLS[${INDEX}]="gpro.lge.com"
+GERRIT_PORTS[${INDEX}]=29418
+((INDEX++)) # INDEX=4
+
+# TIZEN_INFO
+GERRIT_NAMES[${INDEX}]="TIZEN"
+GERRIT_IDS[${INDEX}]="crubeido"
+GERRIT_URLS[${INDEX}]="review.tizen.org"
+GERRIT_PORTS[${INDEX}]=29418
+((INDEX++)) # INDEX=5
+
+# Add infomations you want
+# _INFO
+# GERRIT_NAMES[${INDEX}]=""
+# GERRIT_IDS[${INDEX}]=""
+# GERRIT_URLS[${INDEX}]=""
+# GERRIT_PORTS[${INDEX}]=
+# ((INDEX++)) # INDEX=
+
+
+function print_gerrit_list()
+{
+  local names=""
+  local count=0
+  for name in ${GERRIT_NAMES[@]}; do
+    name="("${count}") "${name}
+    names=${names}" "${name}
+    ((count++))
+  done
+  echo ${names}
+}
+
+function search_project()
+{
+  local index=$1
+  local search=$2
+
+  local count=0
+  local projects=$(ssh -p ${GERRIT_PORTS[${index}]} ${GERRIT_URLS[${index}]} gerrit ls-projects | grep ${search})
+  for project in ${projects}; do
+    PROJECTS[${count}]="ssh://${GERRIT_IDS[${index}]}@${GERRIT_URLS[${index}]}:${GERRIT_PORTS[${index}]}/${project}"
+    ((count++))
+  done
+
+  if [ 0 == ${count} ]; then
+    echo "No result"
+    exit
+  fi
+}
+
+function print_project_list()
+{
+  local count=0
+  for project in ${PROJECTS[@]}; do
+    echo "[" ${count} "]" "${project}"
+    ((count++))
+  done
+}
+
+
+echo ">> Select Gerrit: "
+print_gerrit_list
+read index
+echo ">> Search Project: "
+read search
+search_project ${index} ${search}
+print_project_list
+echo ">> Select Project: "
+read select
+echo ">> Alias: "
+read ali
+
+git clone "${PROJECTS[${select}]}" ${ali}

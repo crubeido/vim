@@ -11,38 +11,41 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'              " https://github.com/VundleVim/Vundle.vim.git
 
 " The followings are my own
-Plugin 'The-NERD-tree'                  " https://github.com/vim-scripts/The-NERD-tree.git
-Plugin 'AutoComplPop'                   " https://github.com/vim-scripts/AutoComplPop.git
-Plugin 'fugitive.vim'                   " https://github.com/tpope/vim-fugitive.git
-Plugin 'SrcExpl'                        " https://github.com/wesleyche/SrcExpl.git
-Plugin 'CCTree'                         " https://github.com/vim-scripts/CCTree.git
-Plugin 'OmniCppComplete'                " https://github.com/vim-scripts/OmniCppComplete.git
-Plugin 'ctrlp.vim'                      " https://github.com/kien/ctrlp.vim.git
-Plugin 'vim-airline'                    " https://github.com/vim-airline/vim-airline.git
-Plugin 'vim-airline-themes'             " https://github.com/vim-airline/vim-airline-themes.git
-Plugin 'Conque'                         " https://github.com/vim-scripts/Conque-GDB.git
-Plugin 'tagbar'                         " https://github.com/majutsushi/tagbar.git
-Plugin 'ack.vim'                        " https://github.com/mileszs/ack.vim.git
-Plugin 'vim-surround'                   " https://github.com/tpope/vim-surround.git
-"Plugin 'syntastic'                      " https://github.com/vim-syntastic/syntastic.git
-Plugin 'tern-for-vim'                   " https://github.com/ternjs/tern_for_vim.git
-Plugin 'gundo.vim'                      " https://github.com/sjl/gundo.vim.git
-"Plugin 'YouCompleteMe'                  " https://github.com/Valloric/YouCompleteMe.git
-Plugin 'gsearch'                        " https://github.com/vim-scripts/gsearch.git
-Plugin 'vim-gitgutter'                  " https://github.com/airblade/vim-gitgutter.git
-Plugin 'tabular'                        " https://github.com/godlygeek/tabular.git
-Plugin 'CycleColor'                     " https://github.com/vim-scripts/CycleColor.git
-Plugin 'auto-pairs'                     " https://github.com/jiangmiao/auto-pairs.git
-Plugin 'nerdcommenter'                  " https://github.com/scrooloose/nerdcommenter.git
+Plugin 'The-NERD-tree'                  "https://github.com/vim-scripts/The-NERD-tree.git
+Plugin 'AutoComplPop'                   "https://github.com/vim-scripts/AutoComplPop.git
+Plugin 'fugitive.vim'                   "https://github.com/tpope/vim-fugitive.git
+Plugin 'SrcExpl'                        "https://github.com/wesleyche/SrcExpl.git
+Plugin 'CCTree'                         "https://github.com/vim-scripts/CCTree.git
+Plugin 'OmniCppComplete'                "https://github.com/vim-scripts/OmniCppComplete.git
+Plugin 'ctrlp.vim'                      "https://github.com/kien/ctrlp.vim.git
+Plugin 'vim-airline'                    "https://github.com/vim-airline/vim-airline.git
+Plugin 'vim-airline-themes'             "https://github.com/vim-airline/vim-airline-themes.git
+Plugin 'Conque'                         "https://github.com/vim-scripts/Conque-GDB.git
+Plugin 'tagbar'                         "https://github.com/majutsushi/tagbar.git
+Plugin 'ack.vim'                        "https://github.com/mileszs/ack.vim.git
+Plugin 'vim-surround'                   "https://github.com/tpope/vim-surround.git
+"Plugin 'syntastic'                      "https://github.com/vim-syntastic/syntastic.git
+Plugin 'tern-for-vim'                   "https://github.com/ternjs/tern_for_vim.git
+Plugin 'gundo.vim'                      "https://github.com/sjl/gundo.vim.git
+"Plugin 'YouCompleteMe'                  "https://github.com/Valloric/YouCompleteMe.git
+Plugin 'gsearch'                        "https://github.com/vim-scripts/gsearch.git
+Plugin 'vim-gitgutter'                  "https://github.com/airblade/vim-gitgutter.git
+Plugin 'tabular'                        "https://github.com/godlygeek/tabular.git
+Plugin 'CycleColor'                     "https://github.com/vim-scripts/CycleColor.git
+Plugin 'auto-pairs'                     "https://github.com/jiangmiao/auto-pairs.git
+Plugin 'nerdcommenter'                  "https://github.com/scrooloose/nerdcommenter.git
+"Plugin 'vim-lsp'                        "https://github.com/prabirshrestha/vim-lsp.git
+"Plugin 'dense-analysis/ale'             "https://github.com/dense-analysis/ale.git
 
 " javascript
-Plugin 'vim-node'                       " https://github.com/moll/vim-node.git
-Plugin 'vim-javascript'                 " https://github.com/pangloss/vim-javascript.git
-Plugin 'vim-javascript-syntax'          " https://github.com/jelera/vim-javascript-syntax.git
-Plugin 'vim-indent-guides'              " https://github.com/nathanaelkane/vim-indent-guides.git
-Plugin 'vim-nodejs-complete'            " https://github.com/myhere/vim-nodejs-complete.git
+"Plugin 'vim-node'                       " https://github.com/moll/vim-node.git
+"Plugin 'vim-javascript'                 " https://github.com/pangloss/vim-javascript.git
+"Plugin 'vim-javascript-syntax'          " https://github.com/jelera/vim-javascript-syntax.git
+"Plugin 'vim-indent-guides'              " https://github.com/nathanaelkane/vim-indent-guides.git
+"Plugin 'vim-nodejs-complete'            " https://github.com/myhere/vim-nodejs-complete.git
 
 " qml
+"Plugin 'vim-qml'                        " https://github.com/peterhoeg/vim-qml.git
 "Plugin 'qml.vim'                        " https://github.com/calincru/qml.vim.git
 
 " All of your Plugins must be added before the following line
@@ -81,6 +84,8 @@ set fileencodings=utf-8,euckr
 set path=.,./
 set hlsearch
 set backspace=indent,eol,start
+set updatetime=50
+"set relativenumber
 
 " Declare mapleader
 let mapleader = ";"
@@ -98,7 +103,7 @@ endfunction
 autocmd Syntax cpp call EnhanceCppSyntax()
 
 " ctags setting
-set tags=./tags,tags,./TAGS,TAGS,/home/work/eunsik0.lee/webos/luna-service2/tags,/home/work/eunsik0.lee/webos/libpbnjson/tags,/home/work/eunsik0.lee/webos/cjson/tags,/home/work/eunsik0.lee/include/cpp
+set tags=./tags,tags,./TAGS,TAGS,/home/work/eunsik0.lee/webos/luna-service2/tags,/home/work/eunsik0.lee/webos/libpbnjson/tags,/home/work/eunsik0.lee/webos/cjson/tags,/home/work/eunsik0.lee/include/cpp,/home/work/eunsik0.lee/include/uv_tag
 "set tags=/home/work/eunsik0.lee/work/linux/tags
 map <Leader>ac <ESC>:!ctags -R -I --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=c++ .<CR><CR>
 "map <Leader>aj <ESC>:!find . -type f -iregex ".*\.js$" -not -path "./node_modules/*" -exec jsctags {} -f \; | sed '/^$/d' | sort > tags<CR>
@@ -161,7 +166,7 @@ nnoremap <C-s> :w<CR>
 vnoremap <C-s> <ESC>:w<CR>
 
 " grep
-nnoremap <C-j> :grep -I <cword> * -r --exclude={tags,cscope.out,cscope.files}<CR>:copen<CR><CR>
+nnoremap <C-j> :grep -I <cword> * -r --exclude={tags,cscope.out,cscope.files} --exclude-dir=oe-workdir<CR>:copen<CR><CR>
 " Ack
 "nnoremap <C-j> :Ack --ignore-file=is:tags <cword><CR>
 
@@ -215,11 +220,14 @@ let g:SrcExpl_refreshTime = 100 " // Set 100 ms for refreshing the Source Explor
 "endfunction
 "autocmd Syntax javascript call SyntasticChecker()
 
+" Set this. Airline will handle the rest.
+let g:airline#extensions#ale#enabled = 1
 
 syntax on
 let g:solarized_termcolors=256
 se t_Co=256
-set background=light
+set background=dark
 "colorscheme molokai " https://github.com/tomasr/molokai.git
 "colorscheme solarized " https://github.com/altercation/vim-colors-solarized.git
-colorscheme distinguished " https://github.com/Lokaltog/vim-distinguished.git
+"colorscheme distinguished " https://github.com/Lokaltog/vim-distinguished.git
+colorscheme gruvbox "https://github.com/morhetz/gruvbox.git
