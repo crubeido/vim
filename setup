@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Install prerequisite modules for ubuntu
-sudo apt-get install net-tools vim git tig gcc g++ make ctags cscope byobu nodejs
+sudo apt-get update
+sudo apt-get install net-tools vim git tig gcc g++ make ctags cscope byobu nodejs cmake
 
 # Download vim utils
 mkdir -p "$HOME/.vim/bundle"

@@ -68,8 +68,8 @@ filetype plugin on
 set title
 set nu
 set vb
-set ts=4
-set sw=4
+set ts=2
+set sw=2
 set cindent
 set autoindent
 "set smartindent
@@ -226,8 +226,8 @@ let g:airline#extensions#ale#enabled = 1
 syntax on
 let g:solarized_termcolors=256
 se t_Co=256
-set background=dark
+set background=light
 "colorscheme molokai " https://github.com/tomasr/molokai.git
 "colorscheme solarized " https://github.com/altercation/vim-colors-solarized.git
-"colorscheme distinguished " https://github.com/Lokaltog/vim-distinguished.git
-colorscheme gruvbox "https://github.com/morhetz/gruvbox.git
+colorscheme distinguished " https://github.com/Lokaltog/vim-distinguished.git
+"colorscheme gruvbox "https://github.com/morhetz/gruvbox.git
